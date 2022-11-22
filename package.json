@@ -1,0 +1,30 @@
+{
+  "type": "module",
+  "name": "webdev-project-team5-node-server",
+  "version": "1.0.0",
+  "description": "Node.js HTTP Web server for the final project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "start": "node app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chotomirza/webdev-project-team5-node-server.git"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "Server",
+    "HTTP"
+  ],
+  "author": "MNA, AD, AI, DS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chotomirza/webdev-project-team5-node-server/issues"
+  },
+  "homepage": "https://github.com/chotomirza/webdev-project-team5-node-server#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
