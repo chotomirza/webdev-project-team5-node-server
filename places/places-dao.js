@@ -5,7 +5,7 @@ export const findAllPlaces = async () => {
     return places
 }
 
-export const createPlace = (place) => {
+export const createPlace = async (place) => {
     const actualInsertedPlace = await placesModel.create(place)
     return actualInsertedPlace
 }

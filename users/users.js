@@ -1,4 +1,4 @@
-export [
+export default [
     {
         _id: '111',
         username: 'ahnaf'

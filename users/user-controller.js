@@ -17,6 +17,8 @@ res.json(users)
 
     app.get('/users', findAllUsers)
     app.post('/users', createUser)
-    app.put('/users', updateUser)
-    app.delete('/users', deleteUser)
+    app.put('/users/:uid', updateUser)
+    app.delete('/users/:uid', deleteUser)
 }
+
+export default UserController;
