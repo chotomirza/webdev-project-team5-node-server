@@ -33,7 +33,7 @@ const PlacesController = (app) => {
         res.send(actualPlace)
     }
 
-    const findAllMovies = async (req, res) => {
+    const findAllPlaces = async (req, res) => {
         const placesInDatabase = await placeDao.findAllPlaces()
         res.send(placesInDatabase)
     }
@@ -50,7 +50,7 @@ const PlacesController = (app) => {
         res.send(200)
     }
 
-    // restart the server after making each each
+    // restart the server after making each
     // use: node .\app.js
 
     const deletePlace = async (req,res) => {
