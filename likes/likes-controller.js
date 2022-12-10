@@ -1,11 +1,11 @@
-import {getPlaces} from "../places/places-controller.js";
+import {getDrinks} from "../drinks/drinks-controller.js";
 import users from "../users/users.js";
 
 let likes = [
-    {_id: '123', user: '111', place: '123'},
-    {_id: '234', user: '111', place: '234'},
-    {_id: '345', user: '222', place: '345'},
-    {_id: '456', user: '333', place: '345'},
+    {_id: '123', user: '111', drink: '123'},
+    {_id: '234', user: '111', drink: '234'},
+    {_id: '345', user: '222', drink: '345'},
+    {_id: '456', user: '333', drink: '345'},
 ]
 
 const LikesController = (app) => {
@@ -23,54 +23,54 @@ const LikesController = (app) => {
         })
         return populatedResults
     }
-    const userLikesPlace = (req, res) => {
+    const userLikesDrink = (req, res) => {
         const uid = req.params.uid
         const pid = req.params.pid
         const newLike = {
             _id: (new Date()).getTime()+'',
             user: uid,
-            place: pid
+            drink: pid
         }
         likes.push(newLike)
         res.json(newLike)
     }
-    const userUnlikesPlace = (req, res) => {
+    const userUnlikesDrink = (req, res) => {
         const uid = req.params.uid
         const pid = req.params.pid
-        likes = likes.filter((l) => l.user !== uid && l.place !== pid)
+        likes = likes.filter((l) => l.user !== uid && l.drink !== pid)
         res.send(200)
     }
     const findAllLikes = (req, res) => {
-        const populatedPlaces = populate({
+        const populatedDrinks = populate({
             rawResults: likes,
-            fieldToPopulate: 'place',
-            sourceData: getPlaces(),
+            fieldToPopulate: 'drink',
+            sourceData: getDrinks(),
             sourceField: '_id'
         })
         const populateUsers = populate({
-            rawResults: populatedPlaces,
+            rawResults: populatedDrinks,
             fieldToPopulate: 'user',
             sourceData: users,
             sourceField: '_id'
         })
         res.json(populateUsers)
     }
-    const findPlacesLikedByUser = (req, res) => {
+    const findDrinksLikedByUser = (req, res) => {
         const uid = req.params.uid
-        const places = likes.filter((like) => like.user === uid)
-        const populatedPlaces = populate({
-            rawResults: places,
-            fieldToPopulate: 'place',
-            sourceData: getPlaces(),
+        const drinks = likes.filter((like) => like.user === uid)
+        const populatedDrinks = populate({
+            rawResults: drinks,
+            fieldToPopulate: 'drink',
+            sourceData: getDrinks(),
             sourceField: '_id'
         })
-        res.json(populatedPlaces)
+        res.json(populatedDrinks)
     }
-    const findUsersWhoLikedPlace = (req, res) => {
+    const findUsersWhoLikedDrink = (req, res) => {
         const pid = req.params.pid
-        const usersWhoLikePlace = likes.filter((like) => like.place === pid)
+        const usersWhoLikeDrink = likes.filter((like) => like.drink === pid)
         const populateUsers = populate({
-            rawResults: usersWhoLikePlace,
+            rawResults: usersWhoLikeDrink,
             fieldToPopulate: 'user',
             sourceData: users,
             sourceField: '_id'
@@ -78,11 +78,11 @@ const LikesController = (app) => {
         res.json(populateUsers)
     }
 
-    app.post('/users/:uid/likes/:pid', userLikesPlace)
-    app.delete('/users/:uid/likes/:pid', userUnlikesPlace)
+    app.post('/users/:uid/likes/:pid', userLikesDrink)
+    app.delete('/users/:uid/likes/:pid', userUnlikesDrink)
     app.get('/likes', findAllLikes)
-    app.get('/users/:uid/likes', findPlacesLikedByUser)
-    app.get('/places/:pid/likes', findUsersWhoLikedPlace)
+    app.get('/users/:uid/likes', findDrinksLikedByUser)
+    app.get('/drinks/:pid/likes', findUsersWhoLikedDrink)
     // app.put(updateLike)
 }
 

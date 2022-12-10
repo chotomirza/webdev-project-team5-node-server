@@ -7,10 +7,6 @@ const DrinksController = (app) => {
 
     const createDrink   = async (req, res) => {
         const drink = req.body
-        // movie["_id"] = (new Date()).getTime() + ''
-        // movie["likes"] = 0
-        // movie["liked"] = false
-        // movies.push(movie)
         const actualDrink = await drinkDao.createDrink(drink)
         res.send(actualDrink)
     }
@@ -19,7 +15,7 @@ const DrinksController = (app) => {
         res.send(drinksInDatabase)
     }
     const updateDrink   = (req, res) => {
-        const mid = req.params['mid']
+        const did = req.params['did']
         const drinkUpdates = req.body
         const drinkIndex = drinks.findIndex(
             (d) => d._id === did)
@@ -30,10 +26,8 @@ const DrinksController = (app) => {
         res.send(200)
     }
     const deleteDrink   = async (req, res) => {
-        const mid = req.params['mid']
+        const did = req.params['did']
         const status = await drinkDao.deleteDrink(did)
-        // movies = movies.filter(
-        //     (m) => m._id !== mid)
         res.send(status)
     }
 
