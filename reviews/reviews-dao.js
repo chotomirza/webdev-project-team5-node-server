@@ -3,9 +3,9 @@ import reviewsModel from "./reviews-model.js";
 export const createReview = (review) =>
     reviewsModel.create(review)
 
-export const findReviewsByDrink = (imdbID) =>
+export const findReviewsByDrink = (drinkId) =>
     reviewsModel
-        .find({imdbID})
+        .find({drinkId})
         .populate('author')
         .exec()
 

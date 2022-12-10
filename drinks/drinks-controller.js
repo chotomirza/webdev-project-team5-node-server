@@ -11,7 +11,7 @@ const DrinksController = (app) => {
         res.send(actualDrink)
     }
     const findAllDrinks = async (req, res) => {
-        const drinksInDatabase = await movieDao.findAllDrinks()
+        const drinksInDatabase = await drinkDao.findAllDrinks()
         res.send(drinksInDatabase)
     }
     const updateDrink   = (req, res) => {
@@ -19,6 +19,7 @@ const DrinksController = (app) => {
         const drinkUpdates = req.body
         const drinkIndex = drinks.findIndex(
             (d) => d._id === did)
+
         drinks[drinkIndex] = {
             ...drinks[drinkIndex],
             ...drinkUpdates
