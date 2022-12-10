@@ -27,7 +27,7 @@ const LikesController = (app) => {
     const userLikesDrink = async (req, res) => {
         const uid = req.params.uid
         const pid = req.params.pid
-        const newLike = await likesDao.userLikesMovie(uid, mid)
+        const newLike = await likesDao.userLikesMovie(uid, pid)
         res.json(newLike)
     }
     const userUnlikesDrink = async (req, res) => {

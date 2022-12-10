@@ -8,7 +8,7 @@ export const createDrink = async (drink) => {
     const actualInsertedDrink = await drinksModel.create(drink)
     return actualInsertedDrink
 }
-export const deleteMovie = async (mid) => {
+export const deleteDrink = async (mid) => {
     const status = await drinksModel.deleteOne({_id: mid})
     return status
 }

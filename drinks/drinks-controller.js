@@ -1,6 +1,6 @@
 import * as drinkDao from './drinks-dao.js'
 
-
+// Here it does not understand what drinks is supposed to be
 export const getDrinks = () => drinks;
 
 const DrinksController = (app) => {
@@ -14,6 +14,7 @@ const DrinksController = (app) => {
         const drinksInDatabase = await drinkDao.findAllDrinks()
         res.send(drinksInDatabase)
     }
+
     const updateDrink   = (req, res) => {
         const did = req.params['did']
         const drinkUpdates = req.body
@@ -26,6 +27,7 @@ const DrinksController = (app) => {
         }
         res.send(200)
     }
+
     const deleteDrink   = async (req, res) => {
         const did = req.params['did']
         const status = await drinkDao.deleteDrink(did)
