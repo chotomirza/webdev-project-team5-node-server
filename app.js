@@ -22,16 +22,19 @@ const options = {
 mongoose.connect('mongodb://localhost:27017/webdev_project_team5', options)
 
 const app = express();
+
 app.use(cors({
                  credentials: true,
                  origin: 'http://localhost:3000'
              }))
+
 // app.use(session({
 //                     secret: 'should be an environment variable',
 //                     resave: false,
 //                     saveUninitialized: true,
 //                     cookie: { secure: false }
 //                 }))
+
 app.use(express.json())
 PlacesController(app)
 //LikesController(app)
