@@ -1,5 +1,6 @@
 import {getDrinks} from "../drinks/drinks-controller.js";
 import users from "../users/users.js";
+import * as likesDao from "./likes-dao.js"
 
 let likes = [
     {_id: '123', user: '111', drink: '123'},
@@ -23,63 +24,80 @@ const LikesController = (app) => {
         })
         return populatedResults
     }
-    const userLikesDrink = (req, res) => {
+    const userLikesDrink = async (req, res) => {
         const uid = req.params.uid
         const pid = req.params.pid
-        const newLike = {
-            _id: (new Date()).getTime()+'',
-            user: uid,
-            drink: pid
-        }
-        likes.push(newLike)
+        const newLike = await likesDao.userLikesMovie(uid, mid)
         res.json(newLike)
     }
-    const userUnlikesDrink = (req, res) => {
+    const userUnlikesDrink = async (req, res) => {
         const uid = req.params.uid
         const pid = req.params.pid
-        likes = likes.filter((l) => l.user !== uid && l.drink !== pid)
-        res.send(200)
+        const status = await likesDao.userUnlikesMovie(uid,pid)
+        res.send(status)
+        // likes = likes.filter((l) => l.user !== uid && l.drink !== pid)
+        // res.send(200)
     }
-    const findAllLikes = (req, res) => {
-        const populatedDrinks = populate({
-            rawResults: likes,
-            fieldToPopulate: 'drink',
-            sourceData: getDrinks(),
-            sourceField: '_id'
-        })
-        const populateUsers = populate({
-            rawResults: populatedDrinks,
-            fieldToPopulate: 'user',
-            sourceData: users,
-            sourceField: '_id'
-        })
-        res.json(populateUsers)
+
+    // const findAllLikes = async (req, res) => {
+    //     const populatedDrinks = populate({
+    //         rawResults: likes,
+    //         fieldToPopulate: 'drink',
+    //         sourceData: getDrinks(),
+    //         sourceField: '_id'
+    //     })
+    //     const populateUsers = populate({
+    //         rawResults: populatedDrinks,
+    //         fieldToPopulate: 'user',
+    //         sourceData: users,
+    //         sourceField: '_id'
+    //     })
+    //     res.json(populateUsers)
+    // }
+
+    const findAllLikes = async (req,res) => {
+        const likes = await likesDao.findAllLikes()
+        res.json(likes)
     }
-    const findDrinksLikedByUser = (req, res) => {
+
+    // const findDrinksLikedByUser = (req, res) => {
+    //     const uid = req.params.uid
+    //     const drinks = likes.filter((like) => like.user === uid)
+    //     const populatedDrinks = populate({
+    //         rawResults: drinks,
+    //         fieldToPopulate: 'drink',
+    //         sourceData: getDrinks(),
+    //         sourceField: '_id'
+    //     })
+    //     res.json(populatedDrinks)
+    // }
+
+    const findDrinksLikedByUser = async (req,res) => {
         const uid = req.params.uid
-        const drinks = likes.filter((like) => like.user === uid)
-        const populatedDrinks = populate({
-            rawResults: drinks,
-            fieldToPopulate: 'drink',
-            sourceData: getDrinks(),
-            sourceField: '_id'
-        })
-        res.json(populatedDrinks)
+        const drinks = await likesDao.findDrinksLikedByUser(uid)
+        res.json(drinks)
     }
-    const findUsersWhoLikedDrink = (req, res) => {
+
+    // const findUsersWhoLikedDrink = (req, res) => {
+    //     const pid = req.params.pid
+    //     const usersWhoLikeDrink = likes.filter((like) => like.drink === pid)
+    //     const populateUsers = populate({
+    //         rawResults: usersWhoLikeDrink,
+    //         fieldToPopulate: 'user',
+    //         sourceData: users,
+    //         sourceField: '_id'
+    //     })
+    //     res.json(populateUsers)
+    // }
+
+    const findUsersWhoLikedDrink = async (req,res) => {
         const pid = req.params.pid
-        const usersWhoLikeDrink = likes.filter((like) => like.drink === pid)
-        const populateUsers = populate({
-            rawResults: usersWhoLikeDrink,
-            fieldToPopulate: 'user',
-            sourceData: users,
-            sourceField: '_id'
-        })
-        res.json(populateUsers)
+        const users = await likesDao.findUsersThatLikedDrink(pid)
+        res.json(users)
     }
 
     app.post('/users/:uid/likes/:pid', userLikesDrink)
-    app.delete('/users/:uid/likes/:pid', userUnlikesDrink)
+    app.delete('/users/:uid/unlikes/:pid', userUnlikesDrink)
     app.get('/likes', findAllLikes)
     app.get('/users/:uid/likes', findDrinksLikedByUser)
     app.get('/drinks/:pid/likes', findUsersWhoLikedDrink)
