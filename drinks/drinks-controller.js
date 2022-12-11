@@ -34,8 +34,20 @@ const DrinksController = (app) => {
         res.send(status)
     }
 
+    const findDrinkById = async (req, res) => {
+            const did = req.params['did']
+            const drink = await drinkDao.findDrinkById(did)
+            if (drink) {
+                res.json(drink)
+                return
+            }
+            res.sendStatus(404)
+        }
+
+
     app.post  ('/drinks', createDrink)
     app.get   ('/drinks', findAllDrinks)
+    app.get('/drinks/:did', findDrinkById)
     app.put   ('/drinks/:did', updateDrink)
     app.delete('/drinks/:did', deleteDrink)
 }
