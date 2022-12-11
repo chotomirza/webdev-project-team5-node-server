@@ -4,6 +4,7 @@ import session from 'express-session'
 import mongoose from "mongoose";
 
 import DrinksController from "./drinks/drinks-controller.js";
+import TriedController from "./tried/tried-controller.js";
 import UsersController from "./users/user-controller.js";
 import LikesController from "./likes/likes-controller.js";
 import ReviewsController from "./reviews/reviews-controller.js";
@@ -45,6 +46,7 @@ ReviewsController(app)
 DrinksController(app)
 FollowsController(app)
 SessionController(app)
+TriedController(app)
 
 
 app.listen(4000)
