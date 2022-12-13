@@ -16,6 +16,9 @@ const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000,
+    // changed autoIndex to true, added useCreateIndex
+    // autoIndex: false,
+    // useCreateIndex: true,
     autoIndex: false,
     maxPoolSize: 10,
     socketTimeoutMS: 45000,

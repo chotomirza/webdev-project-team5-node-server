@@ -96,12 +96,18 @@ const LikesController = (app) => {
         res.json(users)
     }
 
-    app.post('/users/:uid/likes/:pid', userLikesDrink)
-    app.delete('/users/:uid/unlikes/:pid', userUnlikesDrink)
-    app.get('/likes', findAllLikes)
-    app.get('/users/:uid/likes', findDrinksLikedByUser)
-    app.get('/drinks/:pid/likes', findUsersWhoLikedDrink)
+
+    // app.delete('/users/:uid/unlikes/:pid', userUnlikesDrink)
+    // app.post('/users/:uid/likes/:pid', userLikesDrink)
+    // app.get('/likes', findAllLikes)
+    // app.get('/users/:uid/likes', findDrinksLikedByUser)
+    // app.get('/drinks/:pid/likes', findUsersWhoLikedDrink)
     // app.put(updateLike)
+    app.post('/users/:uid/collection/:pid', userLikesDrink)
+    app.get('/collection', findAllLikes)
+    app.get('/users/:uid/collection', findDrinksLikedByUser)
+    app.get('/drinks/:pid/collection', findUsersWhoLikedDrink)
 }
+
 
 export default LikesController;
