@@ -4,8 +4,20 @@ const FollowsController = (app) => {
         const follow = req.body
         const currentUser = req.session['currentUser']
         follow.follower = currentUser._id
-        const actualFollow = await dao.followUser(follow)
-        res.json(actualFollow)
+        follow.code = parseInt(follow.follower) + parseInt(follow.followed)
+
+        if( (follow.follower) === (follow.followed)) {
+            follow.follower = ""
+            follow.followed = ""
+        }
+        else{
+            const actualFollow = await dao.followUser(follow)
+            res.json(actualFollow)
+        }
+
+
+
+
     }
     const findFollowers = async (req, res) => {
         const followed = req.params.followed
