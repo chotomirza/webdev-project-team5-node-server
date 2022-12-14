@@ -15,7 +15,12 @@ const UserController = (app) => {
         res.join(actualUser)
     }
 
-    const updateUser = () => {}
+    const updateUser = async(req, res) => {
+        const  userToUpdate = req.params.uname;
+
+        const status = await userDao.updateUser(userToUpdate);
+        res.json(status)
+    }
 
     const deleteUser = async(req, res) => {
         const userIdToDelete = req.params.uname;
@@ -80,7 +85,7 @@ const UserController = (app) => {
 
     app.post('/users', createUser)
 
-    app.put('/users/:uid', updateUser)
+    app.put('/users/:uname', updateUser)
     app.delete('/users/:uname', deleteUser)
 
     app.post('/register', register)
