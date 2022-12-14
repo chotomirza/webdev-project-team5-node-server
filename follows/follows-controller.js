@@ -3,7 +3,12 @@ const FollowsController = (app) => {
     const followUser = async (req, res) => {
         const follow = req.body
         const currentUser = req.session['currentUser']
-        follow.follower = currentUser._id
+        try {
+            follow.follower = currentUser._id
+        }
+        catch{
+            follow.follower = ""
+        }
         follow.code = parseInt(follow.follower) + parseInt(follow.followed)
 
         if( (follow.follower) === (follow.followed)) {

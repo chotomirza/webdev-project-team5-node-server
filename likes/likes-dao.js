@@ -4,8 +4,8 @@ export const userLikesMovie = async (uid, pid) => {
     return await likesModel.create({user:uid, drink:pid})
 }
 
-export const userUnlikesMovie = async(uid, pid) => {
-    return await likesModel.deleteOne({user:uid, drink:pid})
+export const userUnlikesMovie = async(pid) => {
+    return likesModel.deleteOne({drink: pid});
 }
 
 export const findDrinksLikedByUser = async (uid) => {

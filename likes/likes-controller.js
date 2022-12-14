@@ -31,9 +31,8 @@ const LikesController = (app) => {
         res.json(newLike)
     }
     const userUnlikesDrink = async (req, res) => {
-        const uid = req.params.uid
         const pid = req.params.pid
-        const status = await likesDao.userUnlikesMovie(uid,pid)
+        const status = await likesDao.userUnlikesMovie(pid)
         res.send(status)
         // likes = likes.filter((l) => l.user !== uid && l.drink !== pid)
         // res.send(200)
@@ -97,7 +96,7 @@ const LikesController = (app) => {
     }
 
 
-    // app.delete('/users/:uid/unlikes/:pid', userUnlikesDrink)
+     app.delete('/unsaves/:pid', userUnlikesDrink)
     // app.post('/users/:uid/likes/:pid', userLikesDrink)
     // app.get('/likes', findAllLikes)
     // app.get('/users/:uid/likes', findDrinksLikedByUser)

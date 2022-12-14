@@ -17,7 +17,12 @@ const UserController = (app) => {
 
     const updateUser = () => {}
 
-    const deleteUser = () => {}
+    const deleteUser = async(req, res) => {
+        const userIdToDelete = req.params.uname;
+        const status = await userDao.deleteUser(userIdToDelete);
+
+        res.json(status);
+    }
 
     const register = async (req,res) => {
         const user = req.body;
@@ -75,7 +80,7 @@ const UserController = (app) => {
     app.post('/users', createUser)
 
     app.put('/users/:uid', updateUser)
-    app.delete('/users/:uid', deleteUser)
+    app.delete('/users/:uname', deleteUser)
 
     app.post('/register', register)
     app.post('/login', login)
