@@ -96,7 +96,7 @@ const LikesController = (app) => {
     }
 
 
-     app.delete('/unsaves/:pid', userUnlikesDrink)
+     app.delete('/collection/:pid', userUnlikesDrink)
     // app.post('/users/:uid/likes/:pid', userLikesDrink)
     // app.get('/likes', findAllLikes)
     // app.get('/users/:uid/likes', findDrinksLikedByUser)

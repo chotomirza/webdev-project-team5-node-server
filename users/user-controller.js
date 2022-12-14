@@ -31,6 +31,7 @@ const UserController = (app) => {
             res.sendStatus(403)
             return
         }
+        user.role = 'guest'
         const currentUser = await userDao.createUser(user)
         req.session['currentUser'] = currentUser
         res.json(currentUser)
